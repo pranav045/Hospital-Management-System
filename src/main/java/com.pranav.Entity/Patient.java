@@ -1,7 +1,10 @@
 package com.pranav.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -9,6 +12,16 @@ public class Patient {
 	private int id;
 	private String name;
 	private String disease;
+	@OneToMany(mappedBy = "Patient")
+	private List<Appointment> appointment;
+
+	public List<Appointment> getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(List<Appointment> appointment) {
+		this.appointment = appointment;
+	}
 
 	public int getId() {
 		return id;
@@ -34,4 +47,3 @@ public class Patient {
 		this.disease = disease;
 	}
 }
-
