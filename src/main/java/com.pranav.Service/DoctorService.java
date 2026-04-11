@@ -22,4 +22,13 @@ public class DoctorService {
 		rs.setMessage("Successfully saved");
 		return new ResponseEntity<ResponseStructure<Doctor>>(rs, HttpStatus.CREATED);
 	}
+
+	public ResponseEntity<ResponseStructure<Doctor>> getAppointment(int id) {
+		Doctor receivedDoctor = doctorDAO.getDoctor(id);
+		ResponseStructure<Doctor> rs = new ResponseStructure<Doctor>();
+		rs.setStatusCode(HttpStatus.FOUND.value());
+		rs.setData(receivedDoctor);
+		rs.setMessage("Doctor found successfullly");
+		return new ResponseEntity<ResponseStructure<Doctor>>(rs, HttpStatus.FOUND);
+	}
 }
