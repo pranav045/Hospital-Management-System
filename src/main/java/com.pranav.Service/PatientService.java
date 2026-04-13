@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.DAO.PatientDAO;
 import com.pranav.DTO.ResponseStructure;
 import com.pranav.Entity.Patient;
+import com.pranav.Exception.IdDoesNotPresentException;
 
 @Service
 public class PatientService {
@@ -25,11 +26,14 @@ public class PatientService {
 
 	public ResponseEntity<ResponseStructure<Patient>> getAppointment(int id) {
 		Patient data = patientDAO.getPatient(id);
-		ResponseStructure<Patient> rs = new ResponseStructure<Patient>();
-		rs.setStatusCode(HttpStatus.FOUND.value());
-		rs.setData(data);
-		rs.setMessage("Patient found successfullly");
-		return new ResponseEntity<ResponseStructure<Patient>>(rs, HttpStatus.FOUND);
+		if (data != null) {
+			ResponseStructure<Patient> rs = new ResponseStructure<Patient>();
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			rs.setData(data);
+			rs.setMessage("Patient found successfullly");
+			return new ResponseEntity<ResponseStructure<Patient>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new IdDoesNotPresentException("Id " + id + " does not found");
+		}
 	}
 }
-
