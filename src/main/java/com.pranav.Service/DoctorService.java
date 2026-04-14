@@ -24,7 +24,7 @@ public class DoctorService {
 		return new ResponseEntity<ResponseStructure<Doctor>>(rs, HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<ResponseStructure<Doctor>> getAppointment(int id) {
+	public ResponseEntity<ResponseStructure<Doctor>> getDoctor(int id) {
 		Doctor receivedDoctor = doctorDAO.getDoctor(id);
 		if (receivedDoctor != null) {
 			ResponseStructure<Doctor> rs = new ResponseStructure<Doctor>();
