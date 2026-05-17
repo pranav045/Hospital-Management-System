@@ -1,5 +1,7 @@
 package com.pranav.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +28,9 @@ public class AppointmentDAO {
 		} else {
 			return false;
 		}
+	}
+
+	public List<Appointment> getAllAppointments() {
+		return appointmentRepository.findAll();
 	}
 }
