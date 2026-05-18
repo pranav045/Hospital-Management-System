@@ -1,5 +1,7 @@
 package com.pranav.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.DAO.DoctorDAO;
 import com.pranav.DTO.ResponseStructure;
 import com.pranav.Entity.Doctor;
+import com.pranav.Exception.EmptyException;
 import com.pranav.Exception.IdDoesNotPresentException;
 
 @Service
@@ -34,6 +37,19 @@ public class DoctorService {
 			return new ResponseEntity<ResponseStructure<Doctor>>(rs, HttpStatus.FOUND);
 		} else {
 			throw new IdDoesNotPresentException("Id " + id + " does not found");
+		}
+	}
+
+	public ResponseEntity<ResponseStructure<List<Doctor>>> getAllDoctors() {
+		List<Doctor> data = doctorDAO.getAllDoctors();
+		if (data != null) {
+			ResponseStructure<List<Doctor>> rs = new ResponseStructure<List<Doctor>>();
+			rs.setData(data);
+			rs.setMessage("All appointments found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Doctor>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No doctors found");
 		}
 	}
 }
