@@ -1,5 +1,7 @@
 package com.pranav.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.DAO.PatientDAO;
 import com.pranav.DTO.ResponseStructure;
 import com.pranav.Entity.Patient;
+import com.pranav.Exception.EmptyException;
 import com.pranav.Exception.IdDoesNotPresentException;
 
 @Service
@@ -15,7 +18,7 @@ public class PatientService {
 	@Autowired
 	private PatientDAO patientDAO;
 
-	public ResponseEntity<ResponseStructure<Patient>> addPatient(Patient patient) {
+	public ResponseEntity<ResponseStructure<Patient>> savePatient(Patient patient) {
 		Patient receivedPatient = patientDAO.savePatient(patient);
 		ResponseStructure<Patient> rs = new ResponseStructure<Patient>();
 		rs.setStatusCode(HttpStatus.CREATED.value());
@@ -34,6 +37,19 @@ public class PatientService {
 			return new ResponseEntity<ResponseStructure<Patient>>(rs, HttpStatus.FOUND);
 		} else {
 			throw new IdDoesNotPresentException("Id " + id + " does not found");
+		}
+	}
+
+	public ResponseEntity<ResponseStructure<List<Patient>>> getAllPatients() {
+		List<Patient> data = patientDAO.getAllPatients();
+		if (data != null) {
+			ResponseStructure<List<Patient>> rs = new ResponseStructure<List<Patient>>();
+			rs.setData(data);
+			rs.setMessage("All appointments found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Patient>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No Patients found");
 		}
 	}
 }
