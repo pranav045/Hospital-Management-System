@@ -1,5 +1,7 @@
 package com.pranav.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,10 @@ public class AppointmentController {
 	@GetMapping("/get/{id}")
 	public ResponseEntity<ResponseStructure<Appointment>> getAppointment(@PathVariable int id) {
 		return appointmentService.getAppointment(id);
+	}
+
+	@GetMapping("/getAllAppointments")
+	public ResponseEntity<ResponseStructure<List<Appointment>>> getAllAppointments() {
+		return appointmentService.getAllAppointments();
 	}
 }
