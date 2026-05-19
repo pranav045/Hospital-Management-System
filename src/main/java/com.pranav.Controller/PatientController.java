@@ -1,5 +1,7 @@
 package com.pranav.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,9 @@ public class PatientController {
 	public ResponseEntity<ResponseStructure<Patient>> getPatient(@PathVariable int id) {
 		return patientService.getPatient(id);
 	}
+
+	@GetMapping("/getAllPatients")
+	public ResponseEntity<ResponseStructure<List<Patient>>> getAllPatients() {
+		return patientService.getAllPatients();
+	}
 }
-
-
