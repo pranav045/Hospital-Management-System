@@ -52,4 +52,18 @@ public class PatientService {
 			throw new EmptyException("No Patients found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Patient>> deletePatient(int id) {
+		Patient data = patientDAO.getPatient(id);
+		if (data != null) {
+			ResponseStructure<Patient> rs = new ResponseStructure<Patient>();
+			patientDAO.deletePatient(id);
+			rs.setData(null);
+			rs.setMessage("Patient having id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Patient>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Patient id " + id + " not found");
+		}
+	}
 }
