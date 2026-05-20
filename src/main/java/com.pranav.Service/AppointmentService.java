@@ -52,4 +52,17 @@ public class AppointmentService {
 			throw new EmptyException("No appointments found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Appointment>> deleteAppointment(int id) {
+		Appointment data = appointmentDAO.getAppointment(id);
+		if (data != null) {
+			ResponseStructure<Appointment> rs = new ResponseStructure<Appointment>();
+			rs.setData(null);
+			rs.setMessage("Appoinment havind id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Appointment>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Id " + id + " not found");
+		}
+	}
 }
