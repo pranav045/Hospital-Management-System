@@ -57,6 +57,7 @@ public class AppointmentService {
 		Appointment data = appointmentDAO.getAppointment(id);
 		if (data != null) {
 			ResponseStructure<Appointment> rs = new ResponseStructure<Appointment>();
+			appointmentDAO.deleteAppointment(id);
 			rs.setData(null);
 			rs.setMessage("Appoinment havind id " + id + " deleted successfully");
 			rs.setStatusCode(HttpStatus.ACCEPTED.value());
