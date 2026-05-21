@@ -35,7 +35,7 @@ public class DoctorController {
 		return doctorService.getAllDoctors();
 	}
 
-	@DeleteMapping("/deletePatient/{id}")
+	@DeleteMapping("/deleteDoctor/{id}")
 	public ResponseEntity<ResponseStructure<Doctor>> deletePatient(@PathVariable int id) {
 		return doctorService.deleteDoctor(id);
 	}
