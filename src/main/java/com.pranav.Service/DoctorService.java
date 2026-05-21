@@ -52,4 +52,18 @@ public class DoctorService {
 			throw new EmptyException("No doctors found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Doctor>> deleteDoctor(int id) {
+		Doctor data = doctorDAO.getDoctor(id);
+		if (data != null) {
+			ResponseStructure<Doctor> rs = new ResponseStructure<Doctor>();
+			doctorDAO.deleteDoctor(id);
+			rs.setData(null);
+			rs.setMessage("Doctor having id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Doctor>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Doctor id " + id + " not found");
+		}
+	}
 }
