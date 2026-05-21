@@ -36,7 +36,7 @@ public class DoctorController {
 	}
 
 	@DeleteMapping("/deleteDoctor/{id}")
-	public ResponseEntity<ResponseStructure<Doctor>> deletePatient(@PathVariable int id) {
+	public ResponseEntity<ResponseStructure<Doctor>> deleteDoctor(@PathVariable int id) {
 		return doctorService.deleteDoctor(id);
 	}
 }
